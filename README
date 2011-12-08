@@ -1,0 +1,27 @@
+This project presents a simple and effective way see that uncaught exceptions
+that occurr during your application's use are reported back to you.
+
+The only files you need to concern yourself with are:
+
+ - /src/com/guzba/errorreporter/ErrorReportingService.java
+   (necessary implementation)
+
+ - /src/com/guzba/errorreporter/UncaughtExceptionReporter.java
+   (necessary implementation)
+
+ - /src/com/guzba/errorreporter/DemoActivity.java
+   (some necessary wiring and examples)
+
+
+And you will need to add the following lines to your Android Manifest:
+
+<service android:name=".ErrorReportingService">
+     <intent-filter>
+         <action android:name="com.guzba.errorreporter.intent.ERROR" />
+     </intent-filter>
+</service>
+
+and
+
+<uses-permission android:name="android.permission.INTERNET" />
+
