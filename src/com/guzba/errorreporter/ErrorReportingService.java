@@ -34,6 +34,10 @@ public final class ErrorReportingService extends IntentService {
     protected void onHandleIntent(final Intent intent) {
         Log.d(TAG, "onHandleIntent(intent=" + intent.toString() + ")");
         
+        /*  You're on a background thread so block away on network requests, etc.
+         *  
+         *  You can do whatever you want, this is just an example using Parse (http://parse.com)
+         */
         try {
             final String trace = intent.getStringExtra(EXTRA_STACKTRACE);
             final String tag = intent.getStringExtra(EXTRA_TAG);

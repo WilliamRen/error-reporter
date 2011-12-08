@@ -11,6 +11,7 @@ public final class DemoActivity extends Activity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
+        // You need to call this to set up the hook for when an uncaught exception occurs
         Thread.setDefaultUncaughtExceptionHandler(new UncaughtExceptionReporter(this));
         
         this.setContentView(R.layout.main);
@@ -19,6 +20,9 @@ public final class DemoActivity extends Activity {
             @Override
             public void onClick(final View v) {
                 throw new RuntimeException("Oops, this one's fatal!");
+                
+                // Since this exception isn't caught, it causes the application to force close, but
+                // only after the call to our error reporter.
             }
         });
         
@@ -29,6 +33,9 @@ public final class DemoActivity extends Activity {
                     throw new RuntimeException("This one's not a fatal exception.");
                 } catch (final Exception e) {
                     UncaughtExceptionReporter.reportException(DemoActivity.this, e, TAG, false);
+                    
+                    // This is set as nonfatal since it didn't stop the application from functioning but
+                    // something bad happened that you might want to know about as the app's developer.
                 }
             }
         });
